@@ -5,7 +5,7 @@ import { FC } from 'react'
 import { ChevronDown } from 'lucide-react'
 
 import { useStore } from '@/store/global-store'
-import { play } from '@/store/slices/player-slice'
+import { play, usePlayingIndex } from '@/store/slices/player-slice'
 import { useDispatch } from 'react-redux'
 
 import * as Collapsible from '@radix-ui/react-collapsible'
@@ -24,21 +24,17 @@ export const Module: FC<ModuleProps> = ({
 }) => {
   const dispatch = useDispatch()
 
-  const { currentLessonIndex, currentModuleIndex } = useStore((state) => {
-    const { currentLessonIndex, currentModuleIndex } = state.player
-
-    return {
-      currentLessonIndex,
-      currentModuleIndex,
-    }
-  })
+  const { currentLessonIndex, currentModuleIndex } = usePlayingIndex()
 
   const lessons = useStore(
-    (state) => state.player.course.modules[moduleIndex].lessons
+    (state) => state.player.course.modules[moduleIndex].lessons,
   )
 
   return (
-    <Collapsible.Root className="group">
+    <Collapsible.Root
+      className="group"
+      defaultOpen={currentModuleIndex === moduleIndex}
+    >
       <Collapsible.Trigger className="flex w-full items-center gap-3 bg-zinc-800 p-4">
         <div className="flex h-10 w-10 rounded-full items-center justify-center bg-zinc-950 text-xs">
           {moduleIndex + 1}

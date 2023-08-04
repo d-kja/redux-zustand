@@ -2,21 +2,13 @@
 
 import { FC } from 'react'
 
-import { useStore } from '@/store/global-store'
+import { usePlaying } from '@/store/slices/player-slice'
 import { MessageCircle } from 'lucide-react'
 
 interface HeaderProps {}
 
 export const Header: FC<HeaderProps> = () => {
-  const { activeModule, activeLesson } = useStore((state) => {
-    const lessonIndex = state.player.currentLessonIndex
-    const moduleIndex = state.player.currentModuleIndex
-
-    const activeModule = state.player.course.modules[moduleIndex]
-    const activeLesson = activeModule.lessons[lessonIndex]
-
-    return { activeModule, activeLesson }
-  })
+  const { activeModule, activeLesson } = usePlaying()
 
   return (
     <div className="flex items-center justify-between">

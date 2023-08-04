@@ -12,7 +12,7 @@ export default function Home() {
 
           <main className="relative flex overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 shadow pr-80">
             <div className="flex-1">
-              <Player width="100%" height="100%" controls />
+              <Player playing width="100%" height="100%" controls />
             </div>
 
             <Navigation />

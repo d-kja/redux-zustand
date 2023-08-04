@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { PlayAction } from '../@types/player-types'
+import { useStore } from '../global-store'
 
 export const playerSlice = createSlice({
   name: 'player',
@@ -62,14 +63,76 @@ export const playerSlice = createSlice({
     currentLessonIndex: 0,
   },
   reducers: {
-    play: (state, action: PlayAction) => {
+    play: (state, action: PayloadAction<PlayAction>) => {
       const { lessonIndex, moduleIndex } = action.payload
 
       state.currentLessonIndex = lessonIndex
       state.currentModuleIndex = moduleIndex
     },
+    next: (state) => {
+      const { currentLessonIndex, currentModuleIndex } = state
+
+      const nextLessonIndex = currentLessonIndex + 1
+      const nextModuleIndex = currentModuleIndex + 1
+
+      const modules = state.course.modules
+      const nextLesson = modules[currentModuleIndex].lessons[nextLessonIndex]
+
+      if (nextLesson) {
+        state.currentLessonIndex = nextLessonIndex
+        return
+      }
+
+      const nextModule = modules[nextModuleIndex]
+
+      if (nextModule) {
+        state.currentModuleIndex = nextModuleIndex
+        state.currentLessonIndex = 0
+      }
+    },
   },
 })
 
-export const { play } = playerSlice.actions
+export const { play, next } = playerSlice.actions
 export const playerReducer = playerSlice.reducer
+
+export const usePlaying = () => {
+  return useStore((state) => {
+    const lessonIndex = state.player.currentLessonIndex
+    const moduleIndex = state.player.currentModuleIndex
+
+    const activeModule = state.player.course.modules[moduleIndex]
+    const activeLesson = activeModule.lessons[lessonIndex]
+
+    return { activeModule, activeLesson }
+  })
+}
+export const useCurrentLesson = () => {
+  return useStore((state) => {
+    const lessonIndex = state.player.currentLessonIndex
+    const moduleIndex = state.player.currentModuleIndex
+
+    const activeModule = state.player.course.modules[moduleIndex]
+    const activeLesson = activeModule.lessons[lessonIndex]
+
+    return activeLesson
+  })
+}
+export const useModuleLesson = () => {
+  return useStore((state) => {
+    const moduleIndex = state.player.currentModuleIndex
+    const activeModule = state.player.course.modules[moduleIndex]
+
+    return activeModule
+  })
+}
+export const usePlayingIndex = () => {
+  return useStore((state) => {
+    const { currentLessonIndex, currentModuleIndex } = state.player
+
+    return {
+      currentLessonIndex,
+      currentModuleIndex,
+    }
+  })
+}

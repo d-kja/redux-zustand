@@ -1,6 +1,4 @@
 export type PlayAction = {
-  payload: {
-    moduleIndex: number
-    lessonIndex: number
-  }
+  moduleIndex: number
+  lessonIndex: number
 }
