@@ -3,6 +3,7 @@ import { next, play, playerSlice } from '../../store/slices/player-slice'
 
 const baseState = {
   course: {
+    id: 1,
     modules: [
       {
         id: '1',

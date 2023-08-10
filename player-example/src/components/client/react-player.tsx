@@ -23,7 +23,7 @@ export const Player: FC<PlayerProps> = (props) => {
         {hasWindow && (
           <ReactPlayer
             {...props}
-            url={`https://www.youtube.com/watch?v=${lesson.id}`}
+            url={`https://www.youtube.com/watch?v=${lesson?.id}`}
             onEnded={handlePlayNextVideo}
           />
         )}

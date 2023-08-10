@@ -13,9 +13,9 @@ export const Header: FC<HeaderProps> = () => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-bold">{activeLesson.title}</h1>
+        <h1 className="text-2xl font-bold">{activeLesson?.title}</h1>
         <span className="text-sm text-zinc-400">
-          Módulo &quot;{activeModule.title}&ldquo;
+          Módulo &quot;{activeModule?.title}&ldquo;
         </span>
       </div>
 

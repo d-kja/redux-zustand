@@ -27,7 +27,7 @@ export const Module: FC<ModuleProps> = ({
   const { currentLessonIndex, currentModuleIndex } = usePlayingIndex()
 
   const lessons = useStore(
-    (state) => state.player.course.modules[moduleIndex].lessons,
+    (state) => state.player.course?.modules[moduleIndex].lessons,
   )
 
   return (
@@ -50,7 +50,7 @@ export const Module: FC<ModuleProps> = ({
 
       <Collapsible.Content asChild>
         <nav className="relative flex flex-col gap-4 p-6">
-          {lessons.map((lesson, lessonIndex) => {
+          {lessons?.map((lesson, lessonIndex) => {
             const isActive =
               moduleIndex === currentModuleIndex &&
               lessonIndex === currentLessonIndex
