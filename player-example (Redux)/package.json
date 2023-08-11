@@ -9,7 +9,7 @@
     "lint": "next lint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "server": "json-server -w server.json -d 500 -p 4000"
+    "server": "json-server -w server.json -d 1500 -p 4000"
   },
   "dependencies": {
     "@radix-ui/react-collapsible": "^1.0.3",

@@ -20,4 +20,5 @@ export type PlayerState = {
   course: Course | null
   currentModuleIndex: number
   currentLessonIndex: number
+  isLoading: boolean
 }

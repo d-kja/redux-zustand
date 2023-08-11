@@ -4,9 +4,8 @@ import { FC } from 'react'
 
 import { ChevronDown } from 'lucide-react'
 
-import { useStore } from '@/store/global-store'
+import { useDispatch, useStore } from '@/store/global-store'
 import { play, usePlayingIndex } from '@/store/slices/player-slice'
-import { useDispatch } from 'react-redux'
 
 import * as Collapsible from '@radix-ui/react-collapsible'
 import { Lesson } from './lessons'
